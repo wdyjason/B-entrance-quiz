@@ -20,6 +20,7 @@ public class StudentService {
 
     private static List<Team> teamSource;
 
+
     public List<Student> getStudents() {
         return dataSource;
     }
@@ -28,8 +29,15 @@ public class StudentService {
         dataSource.add(new Student(dataSource.size() + 1, name));
     }
 
+    public List<Team> getDividedTeams() {
+        if (teamSource == null) return new ArrayList<>();
+        return teamSource;
+    }
+
     public List<Team> dividedTeam() throws JsonProcessingException {
-        initTeam();
+        if (teamSource == null) initTeam();
+        else clearTeamMates();
+
         List<Student> shuffledStudents = shuffleList();
         int index = 0;
         for (Student student : shuffledStudents) {
@@ -71,6 +79,16 @@ public class StudentService {
         return objectMapper.readValue(jsonString, jt);
     }
 
+    public boolean changeTeamName(Integer id, String name) {
+        for (Team team : teamSource) {
+            if (team.getTeamName().equals(name)) {
+                return false;
+            }
+        }
+        teamSource.get(id - 1).setTeamName(name);
+        return true;
+    }
+
     public List<Student> initDataSource() {
         return Stream.of(new Student(1, "沈乐棋"),
                 new Student(2, "徐慧慧"),
@@ -107,6 +125,12 @@ public class StudentService {
                 new Student(33, "刘轲"),
                 new Student(34, "廖浚斌"),
                 new Student(35, "凌凤仪")).collect(Collectors.toList());
+    }
+
+    private void clearTeamMates() {
+        for (Team team : teamSource) {
+            team.getTeamMates().clear();
+        }
     }
 
     private void initTeam() {
