@@ -1,6 +1,8 @@
 package com.thoughtworks.capability.gtb.entrancequiz.domain;
 
 public class Student {
+    public Student() {}
+
     public Student(Integer id, String name) {
         this.id = id;
         this.name = name;

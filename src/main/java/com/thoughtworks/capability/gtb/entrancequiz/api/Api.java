@@ -1,6 +1,8 @@
 package com.thoughtworks.capability.gtb.entrancequiz.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.thoughtworks.capability.gtb.entrancequiz.domain.Student;
+import com.thoughtworks.capability.gtb.entrancequiz.domain.Team;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,5 +26,10 @@ public class Api {
     @PostMapping("api/student")
     public void createStudent(@RequestParam String name) {
         studentService.createStudent(name);
+    }
+
+    @GetMapping("api/team")
+    public List<Team> dividedTeam() throws JsonProcessingException {
+        return studentService.dividedTeam();
     }
 }
