@@ -27,7 +27,7 @@ public class Api {
         studentService.createStudent(name);
     }
 
-    @GetMapping("api/team/split")
+    @PostMapping("api/team/split")
     public List<Team> dividedTeam() throws JsonProcessingException {
         return studentService.dividedTeam();
     }
